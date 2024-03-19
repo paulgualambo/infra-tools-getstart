@@ -25,3 +25,23 @@ IP_APP="192.168.18.131" IP_INFRA="192.168.18.132" IP_DEPLOY="192.168.18.133" GRO
 IP_APP="192.168.18.131" IP_INFRA="192.168.18.132" IP_DEPLOY="192.168.18.133" GROUP="W002" INTERFACE_NET="enp0s31f6" vagrant reload --provision
 IP_APP="192.168.18.131" IP_INFRA="192.168.18.132" IP_DEPLOY="192.168.18.133" GROUP="W002" INTERFACE_NET="enp0s31f6" vagrant destroy
 ```
+
+Crear accesos directos
+
+```sh
+cd ~
+touch workspace.w001.desktop
+chmod +x workspace.w001.desktop
+chmod +x /home/paul/Documentos/projects/infra-tools-getstart/workspace/script_sandbox_manage.sh
+
+# [Desktop Entry]
+# Version=1.0
+# Type=Application
+# Name=Visual Studio Code
+# Exec=/usr/bin/code
+# Icon=code
+# Terminal=false
+
+cp /home/paul/Documentos/projects/infra-tools-getstart/workspace/links/workspace.sandbox.desktop ~/Desktop/workspace.sandbox.desktop
+
+```

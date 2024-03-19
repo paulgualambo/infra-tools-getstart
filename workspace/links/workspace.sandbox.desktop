@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=workspace_sandbox
+Exec=/home/paul/Documentos/projects/infra-tools-getstart/workspace/virtual-machine/script_sandbox_manage.sh
+Terminal=true
+Comment=Ejecutar mi script en Bash
+Icon=application-x-executable
+Path=/home/paul/Documentos/projects/infra-tools-getstart/workspace/virtual-machine/
