@@ -1,8 +1,8 @@
 # infra-tools-getstart
 
-
-
 PC-[name]
+
+```sh
 chrome
 sudo apt update
 sudo apt install -y wget curl gnupg ca-certificates
@@ -37,4 +37,16 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 source ~/.zshrc
 p10k configure
 
+#VIRTUAL BOX
+sudo apt-get update
+sudo apt-get install virtualbox
+VBoxManage --version
 
+#VAGRANT
+#descarga manual
+#sudo dpkg -i /path/to/vagrant_.deb
+sudo apt-get update
+sudo apt-get install vagrant
+
+sudo apt autoremove -y
+```

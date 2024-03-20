@@ -37,6 +37,8 @@ tsc -v
 
 #AWS
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt-get update
+sudo apt-get install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
 aws --version
