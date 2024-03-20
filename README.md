@@ -1,5 +1,7 @@
 # infra-tools-getstart
 
+
+
 PC-[name]
 chrome
 sudo apt update
@@ -23,4 +25,16 @@ git
 sudo apt update
 sudo apt install git -y
 git --version
+
+Zsh
+sudo apt update
+sudo apt install zsh -y
+zsh --version
+chsh -s $(which zsh)
+echo $SHELL
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+source ~/.zshrc
+p10k configure
+
 
