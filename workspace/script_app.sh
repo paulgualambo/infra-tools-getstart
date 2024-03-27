@@ -1,5 +1,5 @@
 #configure ssh
-ssh-keygen
+#ssh-keygen
 
 #configure token
 
@@ -30,10 +30,10 @@ npm -v
 
 # Install typescript
 # Install TS globally on my machine
-npm i -D -g typescript@latest
-npm i -D @types/node ts-node@latest
-# Check version
-tsc -v
+# npm i -D -g typescript@latest
+# npm i -D -g @types/node ts-node@latest
+# # Check version
+# tsc -v
 
 #AWS
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"

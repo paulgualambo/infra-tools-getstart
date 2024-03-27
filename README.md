@@ -3,6 +3,9 @@
 PC-[name]
 
 ```sh
+
+#UBUNTU
+
 chrome
 sudo apt update
 sudo apt install -y wget curl gnupg ca-certificates
