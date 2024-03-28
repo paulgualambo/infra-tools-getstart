@@ -1,0 +1,102 @@
+IPS
+
+home001
+GROUPS	APP		INFRA		DEPLOY
+SANDBOX	192.168.31.10	192.168.31.11	192.168.31.12	
+TRAIN	192.168.31.13	192.168.31.14	192.168.31.15	
+W001	192.168.31.16	192.168.31.17	192.168.31.18	
+W002	192.168.31.19	192.168.31.20	192.168.31.21	
+
+Host home001-SANDBOX-APP-192.168.31.10
+ HostName 192.168.31.10
+ User paul
+ ForwardAgent yes
+
+Host home001-SANDBOX-INFRA-192.168.31.11
+ HostName 192.168.31.11
+ User paul
+ ForwardAgent yes
+
+Host home001-SANDBOX-DEPLOY-192.168.31.12
+ HostName 192.168.31.12
+ User paul
+ ForwardAgent yes
+
+Host home001-TRAIN-APP-192.168.31.13
+ HostName 192.168.31.13
+ User paul
+ ForwardAgent yes
+
+Host home001-TRAIN-INFRA-192.168.31.14
+ HostName 192.168.31.14
+ User paul
+ ForwardAgent yes
+
+Host home001-TRAIN-DEPLOY-192.168.31.15
+ HostName 192.168.31.15
+ User paul
+ ForwardAgent yes
+
+Host home001-W001-APP-192.168.31.16
+ HostName 192.168.31.16
+ User paul
+ ForwardAgent yes
+
+Host home001-W001-INFRA-192.168.31.17
+ HostName 192.168.31.17
+ User paul
+ ForwardAgent yes
+
+Host home001-W001-DEPLOY-192.168.31.18
+ HostName 192.168.31.18
+ User paul
+ ForwardAgent yes
+
+Host home001-W002-APP-192.168.31.19
+ HostName 192.168.31.19
+ User paul
+ ForwardAgent yes
+
+Host home001-W002-INFRA-192.168.31.20
+ HostName 192.168.31.20
+ User paul
+ ForwardAgent yes
+
+Host home001-W002-DEPLOY-192.168.31.21
+ HostName 192.168.31.21
+ User paul
+ ForwardAgent yes
+
+SANDBOX
+------
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.10 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.11 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.12 #DEPLOY
+
+------------
+
+TRAIN
+------
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.13 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.14 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.15 #DEPLOY
+
+------------
+
+W001
+------
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.16 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.17 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.18 #DEPLOY
+
+------------
+
+W002
+------
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.19 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.20 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.21 #DEPLOY
+
+------------
+
+
