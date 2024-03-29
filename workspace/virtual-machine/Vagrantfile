@@ -10,8 +10,14 @@ def configure_vm(config, vm_name, vm_hostname, vm_ip, vm_network_bridge, vm_box,
       vb.cpus = vm_cpus
     end
 
-    unless vm_skip_sh_scripts
+   
+    puts "vm_skip_sh_scripts "+vm_skip_sh_scripts
+    vm_skip_sh_scripts_bool = vm_skip_sh_scripts == "true"
+    if !vm_skip_sh_scripts_bool
+      puts "execute script "
       configure_vm_script(vm_config, vm_script)
+    else
+      puts "no execute script "
     end
     
   end

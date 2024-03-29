@@ -84,6 +84,10 @@ SKIP_SH_SCRIPTS=false
 if [ "$4" == "reload --provision" ]; then
   SKIP_SH_SCRIPTS=true
   echo "SKIP_SH_SCRIPTS establecido a true"
+else
+  # Aquí puedes agregar lo que quieras que ocurra si $4 no es 'reload --provision'
+  echo "SKIP_SH_SCRIPTS establecido a false"
+  # Por ejemplo, podrías dejar SKIP_SH_SCRIPTS en su valor predeterminado de false o asignarle otro valor
 fi
 
 # Ahora puedes usar las variables en tu comando
