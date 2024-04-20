@@ -2,100 +2,100 @@ IPS
 
 home001
 GROUPS	APP		INFRA		DEPLOY
-SANDBOX	192.168.31.10	192.168.31.11	192.168.31.12	
-TRAIN	192.168.31.13	192.168.31.14	192.168.31.15	
-W001	192.168.31.16	192.168.31.17	192.168.31.18	
-W002	192.168.31.19	192.168.31.20	192.168.31.21	
+SANDBOX	192.168.18.100	192.168.18.101	192.168.18.102	
+TRAIN	192.168.18.103	192.168.18.104	192.168.18.105	
+W001	192.168.18.107	192.168.18.108	192.168.18.109	
+W002	192.168.18.110	192.168.18.111	192.168.18.112	
 
-Host home001-SANDBOX-APP-192.168.31.10
- HostName 192.168.31.10
+Host home001-SANDBOX-APP-192.168.18.100
+ HostName 192.168.18.100
  User paul
  ForwardAgent yes
 
-Host home001-SANDBOX-INFRA-192.168.31.11
- HostName 192.168.31.11
+Host home001-SANDBOX-INFRA-192.168.18.101
+ HostName 192.168.18.101
  User paul
  ForwardAgent yes
 
-Host home001-SANDBOX-DEPLOY-192.168.31.12
- HostName 192.168.31.12
+Host home001-SANDBOX-DEPLOY-192.168.18.102
+ HostName 192.168.18.102
  User paul
  ForwardAgent yes
 
-Host home001-TRAIN-APP-192.168.31.13
- HostName 192.168.31.13
+Host home001-TRAIN-APP-192.168.18.103
+ HostName 192.168.18.103
  User paul
  ForwardAgent yes
 
-Host home001-TRAIN-INFRA-192.168.31.14
- HostName 192.168.31.14
+Host home001-TRAIN-INFRA-192.168.18.104
+ HostName 192.168.18.104
  User paul
  ForwardAgent yes
 
-Host home001-TRAIN-DEPLOY-192.168.31.15
- HostName 192.168.31.15
+Host home001-TRAIN-DEPLOY-192.168.18.105
+ HostName 192.168.18.105
  User paul
  ForwardAgent yes
 
-Host home001-W001-APP-192.168.31.16
- HostName 192.168.31.16
+Host home001-W001-APP-192.168.18.107
+ HostName 192.168.18.107
  User paul
  ForwardAgent yes
 
-Host home001-W001-INFRA-192.168.31.17
- HostName 192.168.31.17
+Host home001-W001-INFRA-192.168.18.108
+ HostName 192.168.18.108
  User paul
  ForwardAgent yes
 
-Host home001-W001-DEPLOY-192.168.31.18
- HostName 192.168.31.18
+Host home001-W001-DEPLOY-192.168.18.109
+ HostName 192.168.18.109
  User paul
  ForwardAgent yes
 
-Host home001-W002-APP-192.168.31.19
- HostName 192.168.31.19
+Host home001-W002-APP-192.168.18.110
+ HostName 192.168.18.110
  User paul
  ForwardAgent yes
 
-Host home001-W002-INFRA-192.168.31.20
- HostName 192.168.31.20
+Host home001-W002-INFRA-192.168.18.111
+ HostName 192.168.18.111
  User paul
  ForwardAgent yes
 
-Host home001-W002-DEPLOY-192.168.31.21
- HostName 192.168.31.21
+Host home001-W002-DEPLOY-192.168.18.112
+ HostName 192.168.18.112
  User paul
  ForwardAgent yes
 
 SANDBOX
 ------
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.10 #APP
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.11 #INFRA
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.12 #DEPLOY
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.100 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.101 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.102 #DEPLOY
 
 ------------
 
 TRAIN
 ------
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.13 #APP
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.14 #INFRA
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.15 #DEPLOY
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.103 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.104 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.105 #DEPLOY
 
 ------------
 
 W001
 ------
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.16 #APP
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.17 #INFRA
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.18 #DEPLOY
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.107 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.108 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.109 #DEPLOY
 
 ------------
 
 W002
 ------
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.19 #APP
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.20 #INFRA
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.31.21 #DEPLOY
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.110 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.111 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.112 #DEPLOY
 
 ------------
 

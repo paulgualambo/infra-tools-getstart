@@ -6,6 +6,14 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 echo "La ruta del script es: $SCRIPT_PATH"
 echo "El directorio del script es: $SCRIPT_DIR"
 
+OS="linux"
+# Verifica si $1 no está vacío para path del archivo vagrantfile
+if [ -n "$5" ]; then
+  # Si $1 tiene algún valor, cambia al directorio indicado por $1
+  OS=$5
+  echo "OS $5"
+fi
+
 PLACE="home"
 # Verifica si $1 no está vacío para path del archivo vagrantfile
 if [ -n "$1" ]; then
@@ -14,25 +22,26 @@ if [ -n "$1" ]; then
   echo "PLACE $1"
 fi
 
-source ${SCRIPT_DIR}/${PLACE}/available_ips.sh
+echo "${SCRIPT_DIR}/${PLACE}/${OS}/available_ips.sh"
+source ${SCRIPT_DIR}/${PLACE}/${OS}/available_ips.sh
 
-# Verifica si $1 no está vacío para path del archivo vagrantfile
+# Verifica si $2 no está vacío para path del archivo vagrantfile
 if [ -n "$2" ]; then
-  # Si $1 tiene algún valor, cambia al directorio indicado por $1
+  # Si $2 tiene algún valor, cambia al directorio indicado por $2
   cd "$2"
   echo "Cambiado al directorio $2"
 fi
 
-index=0
-SCRIPT_INITIAL="sandbox_script.sh"
 GROUP="SANDBOX"
-
 # Verifica si $1 no está vacío para path del archivo vagrantfile
 if [ -n "$3" ]; then 
   GROUP="$3"
   echo "GROUP $3"
 fi
 
+
+index=0
+SCRIPT_INITIAL="sandbox_script.sh"
 case $GROUP in
   SANDBOX)
     echo "El valor es SANDBOX. Aquí va el tratamiento específico para SANDBOX."
@@ -71,13 +80,14 @@ IP_INFRA=${IPS[index]}
 IP_DEPLOY=${IPS[index]}
 ((index++))
 
-OPERATION=up
 
-# Verifica si $1 no está vacío para path del archivo vagrantfile
+OPERATION=up
+# Verifica si $4 no está vacío para path del archivo vagrantfile
 if [ -n "$4" ]; then
   OPERATION="$4"
   echo "PROCESANDO $4"
 fi
+
 
 SKIP_SH_SCRIPTS=false
 # Comprueba si $4 es 'reload --provision'
@@ -100,6 +110,7 @@ echo "IP_DEPLOY ${IP_DEPLOY}"
 
 # Crear un nuevo archivo y escribir en él
 cd ${SCRIPT_DIR}
+echo "Lugar donde crear: ${SCRIPT_DIR}"
 echo "IPS"  | tee 'ips_activos.txt'
 echo ""  | tee -a 'ips_activos.txt'
 echo $PLACE | tee -a 'ips_activos.txt'
@@ -123,6 +134,7 @@ SSHS=""
 IPCONFIGS=""
 GROUPS_ITEM=""
 USER_T="paul"
+
 # Recorrer la matriz y agrupar de 3 en 3
 for (( i=0; i<${#IPS[@]}; i++ )); do
 
@@ -131,7 +143,7 @@ for (( i=0; i<${#IPS[@]}; i++ )); do
 
   if (( (i) % 3 == 0 )); then
     GROUPS_ITEM=${GROUPS_[index]}
-     SSHS+=${GROUPS_ITEM}"\n------\n"
+    SSHS+=${GROUPS_ITEM}"\n------\n"
     echo  -e -n ${GROUPS_[index]}"\t" | tee -a 'ips_activos.txt' # Esto imprime un salto de línea
     ((index++))
   fi

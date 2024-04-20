@@ -25,7 +25,7 @@ sudo apt update
 sudo apt install code
 
 git
-sudo apt update
+sudo apt updatee
 sudo apt install git -y
 git --version
 
