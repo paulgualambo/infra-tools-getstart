@@ -1,5 +1,5 @@
 # Utilizando una función para configurar las VMs
-def configure_vm(config, vm_name, vm_hostname, vm_ip, vm_network_bridge, vm_box, vm_skip_sh_scripts, vm_script, vm_memory=1024, vm_cpus=2)
+def configure_vm(config, vm_name, vm_hostname, vm_ip, vm_network_bridge, vm_box, vm_skip_sh_scripts, vm_script, vm_memory=2048, vm_cpus=2)
   config.vm.define vm_name do |vm_config|
     vm_config.vm.box = vm_box
     vm_config.vm.network "public_network", bridge: vm_network_bridge, ip: vm_ip
@@ -67,6 +67,6 @@ Vagrant.configure("2") do |config|
   
   # Configuración de las VMs usando la función
   configure_vm(config, "#{vm_hostname}_app", "#{vm_hostname}App", ip_address_assigned_app, bridged_network, box_so, skip_sh_scripts, script_initial)
-  configure_vm(config, "#{vm_hostname}_infra", "#{vm_hostname}Infra", ip_address_assigned_infra, bridged_network, box_so, skip_sh_scripts, script_initial)
-  configure_vm(config, "#{vm_hostname}_deploy", "#{vm_hostname}Deploy", ip_address_assigned_deploy, bridged_network, box_so, skip_sh_scripts, script_initial)
+  # configure_vm(config, "#{vm_hostname}_infra", "#{vm_hostname}Infra", ip_address_assigned_infra, bridged_network, box_so, skip_sh_scripts, script_initial)
+  # configure_vm(config, "#{vm_hostname}_deploy", "#{vm_hostname}Deploy", ip_address_assigned_deploy, bridged_network, box_so, skip_sh_scripts, script_initial)
 end

@@ -4,8 +4,8 @@ home001
 GROUPS	APP		INFRA		DEPLOY
 SANDBOX	192.168.18.100	192.168.18.101	192.168.18.102	
 TRAIN	192.168.18.103	192.168.18.104	192.168.18.105	
-W001	192.168.18.107	192.168.18.108	192.168.18.109	
-W002	192.168.18.110	192.168.18.111	192.168.18.112	
+W001	192.168.18.106	192.168.18.107	192.168.18.108	
+W002	192.168.18.109	192.168.18.110	192.168.18.111	
 
 Host home001-SANDBOX-APP-192.168.18.100
  HostName 192.168.18.100
@@ -37,33 +37,33 @@ Host home001-TRAIN-DEPLOY-192.168.18.105
  User paul
  ForwardAgent yes
 
-Host home001-W001-APP-192.168.18.107
+Host home001-W001-APP-192.168.18.106
+ HostName 192.168.18.106
+ User paul
+ ForwardAgent yes
+
+Host home001-W001-INFRA-192.168.18.107
  HostName 192.168.18.107
  User paul
  ForwardAgent yes
 
-Host home001-W001-INFRA-192.168.18.108
+Host home001-W001-DEPLOY-192.168.18.108
  HostName 192.168.18.108
  User paul
  ForwardAgent yes
 
-Host home001-W001-DEPLOY-192.168.18.109
+Host home001-W002-APP-192.168.18.109
  HostName 192.168.18.109
  User paul
  ForwardAgent yes
 
-Host home001-W002-APP-192.168.18.110
+Host home001-W002-INFRA-192.168.18.110
  HostName 192.168.18.110
  User paul
  ForwardAgent yes
 
-Host home001-W002-INFRA-192.168.18.111
+Host home001-W002-DEPLOY-192.168.18.111
  HostName 192.168.18.111
- User paul
- ForwardAgent yes
-
-Host home001-W002-DEPLOY-192.168.18.112
- HostName 192.168.18.112
  User paul
  ForwardAgent yes
 
@@ -85,17 +85,17 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.105 #DEPLOY
 
 W001
 ------
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.107 #APP
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.108 #INFRA
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.109 #DEPLOY
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.106 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.107 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.108 #DEPLOY
 
 ------------
 
 W002
 ------
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.110 #APP
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.111 #INFRA
-ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.112 #DEPLOY
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.109 #APP
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.110 #INFRA
+ssh-copy-id -i ~/.ssh/id_ed25519.pub paul@192.168.18.111 #DEPLOY
 
 ------------
 
