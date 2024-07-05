@@ -1,0 +1,75 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Every Vagrant development environment requires a box. You can search for
+# boxes at https://atlas.hashicorp.com/search.
+
+# VAR ENV
+
+# Parámetros para el Vagrantfile
+BOX_IMAGE = ENV['BOX_IMAGE'] || "bento/ubuntu-24.04"
+ENVIRONMENT = ENV['ENVIRONMENT'] || "SANDBOX"
+
+IP_BASE = ENV['IP_BASE'] || "192.168.56"
+IP_START = ENV['IP_START'].to_i
+
+vm_memory = 2048
+vm_cpus =  2
+vm_script = "#{ENVIRONMENT}_script.sh".downcase!
+bridged_network = ENV['INTERFACE_NET'] || "enp0s31f6"
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get install -y avahi-daemon libnss-mdns
+  SHELL
+
+  vms = [
+    { nombrehost: "#{ENVIRONMENT}-APP", ip: "#{IP_BASE}.#{IP_START}", memory: vm_memory, cpus: vm_cpus, script: vm_script },
+    { nombrehost: "#{ENVIRONMENT}-INFRA", ip: "#{IP_BASE}.#{IP_START + 2}", memory: vm_memory, cpus: vm_cpus, script: vm_script },
+    { nombrehost: "#{ENVIRONMENT}-DEPLOY", ip: "#{IP_BASE}.#{IP_START + 4}", memory: vm_memory, cpus: vm_cpus, script: vm_script }
+  ]
+
+  vms.each do |vm|
+    config.vm.define vm[:nombrehost] do |subconfig|
+      subconfig.vm.box = BOX_IMAGE
+      subconfig.vm.hostname = vm[:nombrehost]
+      subconfig.vm.network :private_network, ip: vm[:ip]
+
+      # El nombre en virtual box
+      subconfig.vm.provider "virtualbox" do |vb|
+        vb.name = vm[:nombrehost]
+        vb.memory = vm[:memory]
+        vb.cpus = vm[:cpus]
+      end
+
+      configure_vm_script(subconfig, vm[:script])
+    end
+  end
+end
+
+
+def configure_vm_script(config, script)
+
+  script = script.downcase
+  unless script.to_s.strip.empty?
+    config.vm.provision "shell", inline: <<-SHELL
+      echo "Copiando y ejecutando el script...#{script}"
+      mkdir -p scripts
+      cp /vagrant/scripts/#{script} /home/vagrant/scripts      
+      cp /vagrant/scripts/install.sh /home/vagrant/scripts
+      ls /home/vagrant/scripts
+      chmod +x /home/vagrant/scripts/#{script}
+      chmod +x /home/vagrant/scripts/install.sh
+      /home/vagrant/scripts/#{script}
+    SHELL
+  else
+    config.vm.provision "shell", inline: <<-SHELL
+      echo "Copiando y ejecutando el script..."
+      mkdir -p scripts
+      cp /vagrant/scripts/install.sh /home/vagrant/scripts
+      chmod +x /home/vagrant/scripts/install.sh
+      /home/vagrant/scripts/install.sh
+    SHELL
+  end
+end
