@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo 'INSTALL TRAIN'
+echo 'INSTALL STUDY'
 cd /home/vagrant/scripts
 ./install.sh

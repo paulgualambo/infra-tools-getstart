@@ -15,6 +15,18 @@ if [ -n "$3" ]; then
   echo "OPERATION $3"
 fi
 
+USER="paul"
+if [ -n "$4" ]; then 
+  USER="$4"
+  echo "USER $4"
+fi
+
+MOUNTAING="true"
+if [ -n "$5" ]; then 
+  MOUNTAING="$5"
+  echo "MOUNTAING $5"
+fi
+
 IP_START=10
 IP_BASE="192.168.56"
 
@@ -23,7 +35,7 @@ declare -A tratamientos
 # Definir los tratamientos específicos para cada entorno
 tratamientos=(
   ["SANDBOX"]="10;El valor es SANDBOX. Aquí va el tratamiento específico para SANDBOX."
-  ["STUDY"]="20;El valor es TRAIN. Aquí va el tratamiento específico para TRAIN."
+  ["STUDY"]="20;El valor es STUDY. Aquí va el tratamiento específico para STUDY ."
   ["W001"]="30;El valor es W001. Aquí va el tratamiento específico para W001."
   ["W002"]="40;El valor es W002. Aquí va el tratamiento específico para W002."
 )
@@ -41,9 +53,14 @@ else
   exit 1
 fi
 
-ENVIRONMENT=$ENVIRONMENT IP_START=$IP_START IP_BASE=$IP_BASE vagrant $OPERATION
+SHARED_FOLDER="/home/paul/environment/"
+
+ENVIRONMENT=$ENVIRONMENT IP_START=$IP_START IP_BASE=$IP_BASE SHARED_FOLDER=$SHARED_FOLDER USER=$USER MOUNTAING=$MOUNTAING vagrant $OPERATION
 
 echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.${IP_START} #APP"
 echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.$((IP_START+2)) #INFRA"
 echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.$((IP_START+4)) #DEPLOY"
 
+echo "ssh ${USER_T}@${IP_BASE}.${IP_START} #APP"
+echo "ssh ${USER_T}@${IP_BASE}.$((IP_START+2)) #INFRA"
+echo "ssh ${USER_T}@${IP_BASE}.$((IP_START+4)) #DEPLOY"
