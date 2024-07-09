@@ -5,4 +5,4 @@ set "BASH_PATH=%CURRENT_DIR:\=/%"
 
 : "C:\Program Files\Git\bin\bash.exe" -c "'%BASH_PATH%'/../get-ips.sh"
 
-"C:\Program Files\Git\bin\bash.exe" -c "'%BASH_PATH%'/../vagrant-process.sh %BASH_PATH%/../../virtual-machine 'SANDBOX' 'halt --force'"
+"C:\Program Files\Git\bin\bash.exe" -c "'%BASH_PATH%'/../vagrant-process.sh 'home001' %BASH_PATH%/../../virtual-machine 'SANDBOX' 'halt --force'"
