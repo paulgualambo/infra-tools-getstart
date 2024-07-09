@@ -4,47 +4,31 @@
 # Every Vagrant development environment requires a box. You can search for
 # boxes at https://atlas.hashicorp.com/search.
 
-# VAR ENV
+require 'json'
 
-# Parámetros para el Vagrantfile
-PROVISION = ENV['PROVISION'] || "true"
-MOUNTAING = ENV['MOUNTAING'] || "true"
-BOX_IMAGE = ENV['BOX_IMAGE'] || "bento/ubuntu-24.04"
-ENVIRONMENT = ENV['ENVIRONMENT'] || "SANDBOX"
-USER = ENV['USER'] || "paul"
-IP_BASE = ENV['IP_BASE'] || "192.168.56"
-IP_START = ENV['IP_START'].to_i
-DIR_PROJECTS = ENV['DIR_PROJECTS'] ||"/home/#{USER}/projects"
-ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
-vm_memory = 2048
-vm_cpus =  2
-vm_script = "#{ENVIRONMENT}_script.sh".downcase!
-bridged_network = ENV['INTERFACE_NET'] || "enp0s31f6"
+vms_config = JSON.parse(ENV['vms_config'])
 
+# Imprimir vms_config en la consola
+puts "vms_config:"
+puts JSON.pretty_generate(vms_config)
 
 Vagrant.configure("2") do |config|
 
-  vms = [
-    {nombrehost:"#{ENVIRONMENT}.APP", node: "APP", ip: "#{IP_BASE}.#{IP_START}", memory: vm_memory, cpus: vm_cpus, script: vm_script },
-    {nombrehost:"#{ENVIRONMENT}.INFRA", node: "INFRA", ip: "#{IP_BASE}.#{IP_START + 2}", memory: vm_memory, cpus: vm_cpus, script: vm_script },
-    {nombrehost:"#{ENVIRONMENT}.DEPLOY", node: "DEPLOY", ip: "#{IP_BASE}.#{IP_START + 4}", memory: vm_memory, cpus: vm_cpus, script: vm_script }
-  ]
+  vms_config['vms'].each do |vm|
 
-  vms.each do |vm|
-    config.vm.define vm[:nombrehost] do |subconfig|
-      subconfig.vm.box = BOX_IMAGE
-      subconfig.vm.hostname = vm[:nombrehost]
-      subconfig.vm.network :private_network, ip: vm[:ip]
-      shared_folder = "#{ENV['SHARED_FOLDER']}#{vm[:nombrehost].downcase}"
+    config.vm.define vm['hostname'] do |subconfig|
+      subconfig.vm.box = vm['box_image']
+      subconfig.vm.hostname = vm['hostname']
+      subconfig.vm.network :private_network, ip: vm['ip']
 
       # El nombre en virtual box
       subconfig.vm.provider "virtualbox" do |vb|
-        vb.name = vm[:nombrehost]
-        vb.memory = vm[:memory]
-        vb.cpus = vm[:cpus]
+        vb.name = "#{vm['hostname']}_#{vm['ip']}"
+        vb.memory = vm['memory']
+        vb.cpus = vm['cpus']
       end
 
-      if PROVISION == "true"
+      if vms_config['provision']
         # Provisión para instalar paquetes y crear usuario
         subconfig.vm.provision "shell", inline: <<-SHELL
             echo "Instalando avahi-daemon y libnss-mdns..."
@@ -53,16 +37,16 @@ Vagrant.configure("2") do |config|
             systemctl restart avahi-daemon
             echo "Instalación completada avahi-daemon y libnss-mdns."
         SHELL
+        configure_vm_script(subconfig, vm['script'])
       end
 
-      configure_vm_script(subconfig, vm[:script])            
-
-      if MOUNTAING == "true"
-        subconfig.vm.synced_folder shared_folder, DIR_PROJECTS , create: true, owner: "#{USER}", group: "#{USER}"
+      if vms_config['mountaing']
+        subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true, owner: vm['username'], group: vm['username']
         subconfig.vm.provision "shell", inline: <<-SHELL
-            echo "Carpeta compartida configurada: #{shared_folder}"
+            echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
         SHELL
       end
+
     end
   end
 end
@@ -75,7 +59,7 @@ def configure_vm_script(config, script)
     config.vm.provision "shell", inline: <<-SHELL
       echo "Copiando y ejecutando el script...#{script}"
       mkdir -p scripts
-      cp /vagrant/scripts/#{script} /home/vagrant/scripts      
+      cp /vagrant/scripts/#{script} /home/vagrant/scripts
       cp /vagrant/scripts/install.sh /home/vagrant/scripts
       ls /home/vagrant/scripts
       chmod +x /home/vagrant/scripts/#{script}

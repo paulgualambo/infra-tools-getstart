@@ -27,6 +27,12 @@ if [ -n "$5" ]; then
   echo "MOUNTAING $5"
 fi
 
+PREFIJO_VM="paul-pc01"
+if [ -n "$6" ]; then 
+  PREFIJO_VM="$6"
+  echo "PREFIJO_VM $6"
+fi
+
 IP_START=10
 IP_BASE="192.168.56"
 
@@ -55,7 +61,7 @@ fi
 
 SHARED_FOLDER="/home/paul/environment/"
 
-ENVIRONMENT=$ENVIRONMENT IP_START=$IP_START IP_BASE=$IP_BASE SHARED_FOLDER=$SHARED_FOLDER USER=$USER MOUNTAING=$MOUNTAING vagrant $OPERATION
+ENVIRONMENT=$ENVIRONMENT IP_START=$IP_START IP_BASE=$IP_BASE SHARED_FOLDER=$SHARED_FOLDER USER=$USER MOUNTAING=$MOUNTAING PREFIJO_VM=$PREFIJO_VM vagrant $OPERATION
 
 echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.${IP_START} #APP"
 echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.$((IP_START+2)) #INFRA"
