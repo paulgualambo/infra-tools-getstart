@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo 'INSTALL SANDBOX'
-cd /home/vagrant/scripts
+echo 'INSTALL infra'
+cd /home/vagrant/scripts_to_provision
 ./install.sh

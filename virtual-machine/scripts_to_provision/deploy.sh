@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo 'INSTALL STUDY'
-cd /home/vagrant/scripts
+echo 'INSTALL deploy'
+cd /home/vagrant/scripts_to_provision
 ./install.sh
