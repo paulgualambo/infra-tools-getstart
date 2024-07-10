@@ -8,8 +8,8 @@ if [ -n "$1" ]; then
 fi
 
 if [ -n "$2" ]; then
-  PREFIJO_VM="$2"
-  echo "PREFIJO_VM $2"
+  VMS_CONFIG="$2"
+  echo "VMS_CONFIG $2"
 fi
 
 if [ -n "$3" ]; then
@@ -18,54 +18,49 @@ if [ -n "$3" ]; then
 fi
 
 if [ -n "$4" ]; then
-  FIRST_TIME="$4"
-  echo "FIRST_TIME $4"
+  ACTION="$4"
+  echo "ACTION $4"
 fi
 
-if [ -n "$5" ]; then
-  USERNAME="$5"
-  echo "USERNAME $5"
-fi
-
-ACTION="up"
+#ACTION="up"
 MOUNTAING="true"
-PROVISION="false"
+PROVISION="true"
 
 # Crear un objeto JSON con jq
 vm_args=$(jq -n \
 --arg current_dir "$CURRENT_DIR" \
---arg prefijo_vm "$PREFIJO_VM" \
+--arg vms_config "$VMS_CONFIG" \
 --arg environment "$ENVIRONMENT" \
 --arg action "$ACTION" \
 --arg mountaing "$MOUNTAING" \
 --arg provision "$PROVISION" \
---arg username "$USERNAME" \
     '{
     current_dir: $current_dir
-    ,prefijo_vm: $prefijo_vm
+    ,vms_config: $vms_config
     ,environment: $environment
     ,action: $action
     ,provision: $provision
     ,mountaing: $mountaing
-    ,username: $username
     }'
 )
 
-if [ "$FIRST_TIME" = "true" ]; then
-  #first time
-  ## mountaing false, provision true
-  vm_args=$(echo "$vm_args" | jq --arg new_provision "true" --arg new_mountaing "false" --arg new_action "up" \
-      '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
-  $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-  ## halt
-  vm_args=$(echo "$vm_args" | jq --arg new_provision "true" --arg new_mountaing "false" --arg new_action "halt" \
-      '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
-  $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-  ## mountaing true, provision false
-  vm_args=$(echo "$vm_args" | jq --arg new_provision "false" --arg new_mountaing "true" --arg new_action "up" \
-      '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
-  $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-else
-  #second time always
-  $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-fi
+# if [ "$FIRST_TIME" = "true" ]; then
+#   #first time
+#   ## mountaing false, provision true
+#   vm_args=$(echo "$vm_args" | jq --arg new_provision "true" --arg new_mountaing "false" --arg new_action "up" \
+#       '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
+#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
+#   ## halt
+#   vm_args=$(echo "$vm_args" | jq --arg new_provision "true" --arg new_mountaing "false" --arg new_action "halt" \
+#       '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
+#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
+#   ## mountaing true, provision false
+#   vm_args=$(echo "$vm_args" | jq --arg new_provision "false" --arg new_mountaing "true" --arg new_action "up" \
+#       '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
+#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
+# else
+#   #second time always
+#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
+# fi
+
+$CURRENT_DIR/lib/vagrant-process.sh "$vm_args"

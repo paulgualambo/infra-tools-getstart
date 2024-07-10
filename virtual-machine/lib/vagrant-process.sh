@@ -5,26 +5,24 @@ json_string=$1
 
 # Usar jq para extraer valores del JSON
 current_dir=$(echo "$json_string" | jq -r '.current_dir')
-prefijo_vm=$(echo "$json_string" | jq -r '.prefijo_vm')
+vms_config=$(echo "$json_string" | jq -r '.vms_config')
 environment=$(echo "$json_string" | jq -r '.environment')
 action=$(echo "$json_string" | jq -r '.action')
 mountaing=$(echo "$json_string" | jq -r '.mountaing')
 provision=$(echo "$json_string" | jq -r '.provision')
-username=$(echo "$json_string" | jq -r '.username')
 
 # Imprimir los valores para verificar
 echo "Current Directory: $current_dir"
-echo "Prefijo VM: $prefijo_vm"
+echo "vms_config: $vms_config"
 echo "Environment: $environment"
 echo "Action: $action"
 echo "Mountaing: $mountaing"
 echo "Provision: $provision"
-echo "Username: $username"
 
 cd $current_dir
 
 # Leer el archivo JSON
-json_string=$(cat vms_config/vms_$prefijo_vm.json)
+json_string=$(cat $vms_config)
 
 # Inicializar el array
 vms=()

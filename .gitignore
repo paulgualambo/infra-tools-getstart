@@ -1,4 +1,3 @@
 .vagrant
 *.log
 **/**/*.log
-./workplace/virtual-machine/scripts/

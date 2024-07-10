@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo 'INSTALL app'
-cd /home/vagrant/scripts
+cd /home/vagrant/scripts_to_provision
 ./install.sh
 
 #configure ssh

@@ -28,24 +28,31 @@ Vagrant.configure("2") do |config|
         vb.cpus = vm['cpus']
       end
 
-      if vms_config['provision']
-        # Provisión para instalar paquetes y crear usuario
-        subconfig.vm.provision "shell", inline: <<-SHELL
-            echo "Instalando avahi-daemon y libnss-mdns..."
-            apt-get update
-            apt-get install -y avahi-daemon libnss-mdns
-            systemctl restart avahi-daemon
-            echo "Instalación completada avahi-daemon y libnss-mdns."
-        SHELL
-        configure_vm_script(subconfig, vm['script'])
-      end
+      # if vms_config['provision']
+      #   # Provisión para instalar paquetes y crear usuario
+      #   subconfig.vm.provision "shell", inline: <<-SHELL
+      #       echo "Instalando avahi-daemon y libnss-mdns..."
+      #       apt-get update
+      #       apt-get install -y avahi-daemon libnss-mdns
+      #       systemctl restart avahi-daemon
+      #       echo "Instalación completada avahi-daemon y libnss-mdns."
+      #   SHELL
+      #   configure_vm_script(subconfig, vm['script'])
+      # end
 
-      if vms_config['mountaing']
-        subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true, owner: vm['username'], group: vm['username']
-        subconfig.vm.provision "shell", inline: <<-SHELL
-            echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
-        SHELL
-      end
+      # if vms_config['mountaing']
+      #   subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true, owner: vm['username'], group: vm['username']
+      #   subconfig.vm.provision "shell", inline: <<-SHELL
+      #       echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
+      #   SHELL
+      # end
+
+      configure_vm_script(subconfig, vm['script'])
+      
+      subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true
+      subconfig.vm.provision "shell", inline: <<-SHELL
+          echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
+      SHELL
 
     end
   end
@@ -58,9 +65,9 @@ def configure_vm_script(config, script)
   unless script.to_s.strip.empty?
     config.vm.provision "shell", inline: <<-SHELL
       echo "Copiando y ejecutando el script...#{script}"
-      mkdir -p scripts
-      cp /vagrant/scripts_to_provision/#{script} /home/vagrant/scripts_to_provision/scripts
-      cp /vagrant/scripts_to_provision/install.sh /home/vagrant/scripts_to_provision/scripts
+      mkdir -p scripts_to_provision
+      cp /vagrant/scripts_to_provision/#{script} /home/vagrant/scripts_to_provision/
+      cp /vagrant/scripts_to_provision/install.sh /home/vagrant/scripts_to_provision/
       ls /home/vagrant/scripts_to_provision
       chmod +x /home/vagrant/scripts_to_provision/#{script}
       chmod +x /home/vagrant/scripts_to_provision/install.sh
@@ -69,7 +76,7 @@ def configure_vm_script(config, script)
   else
     config.vm.provision "shell", inline: <<-SHELL
       echo "Copiando y ejecutando el script..."
-      mkdir -p scripts
+      mkdir -p scripts_to_provision
       cp /vagrant/scripts_to_provision/install.sh /home/vagrant/scripts_to_provision
       chmod +x /home/vagrant/scripts_to_provision/install.sh
       /home/vagrant/scripts_to_provision/install.sh
