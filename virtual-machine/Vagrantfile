@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
 
       configure_vm_script(subconfig, vm['script'])
       
-      subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true
+      subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true, owner: vm['username'], group: vm['username']
       subconfig.vm.provision "shell", inline: <<-SHELL
           echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
       SHELL
