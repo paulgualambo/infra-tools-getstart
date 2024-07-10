@@ -1,0 +1,79 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Every Vagrant development environment requires a box. You can search for
+# boxes at https://atlas.hashicorp.com/search.
+
+require 'json'
+
+vms_config = JSON.parse(ENV['vms_config'])
+
+# Imprimir vms_config en la consola
+puts "vms_config:"
+puts JSON.pretty_generate(vms_config)
+
+Vagrant.configure("2") do |config|
+
+  vms_config['vms'].each do |vm|
+
+    config.vm.define vm['hostname'] do |subconfig|
+      subconfig.vm.box = vm['box_image']
+      subconfig.vm.hostname = vm['hostname']
+      subconfig.vm.network :private_network, ip: vm['ip']
+
+      # El nombre en virtual box
+      subconfig.vm.provider "virtualbox" do |vb|
+        vb.name = "#{vm['hostname']}_#{vm['ip']}"
+        vb.memory = vm['memory']
+        vb.cpus = vm['cpus']
+      end
+
+      if vms_config['provision']
+        # Provisión para instalar paquetes y crear usuario
+        subconfig.vm.provision "shell", inline: <<-SHELL
+            echo "Instalando avahi-daemon y libnss-mdns..."
+            apt-get update
+            apt-get install -y avahi-daemon libnss-mdns
+            systemctl restart avahi-daemon
+            echo "Instalación completada avahi-daemon y libnss-mdns."
+        SHELL
+        configure_vm_script(subconfig, vm['script'])
+      end
+
+      if vms_config['mountaing']
+        subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true, owner: vm['username'], group: vm['username']
+        subconfig.vm.provision "shell", inline: <<-SHELL
+            echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
+        SHELL
+      end
+
+    end
+  end
+end
+
+
+def configure_vm_script(config, script)
+
+  script = script.downcase
+  unless script.to_s.strip.empty?
+    config.vm.provision "shell", inline: <<-SHELL
+      echo "Copiando y ejecutando el script...#{script}"
+      mkdir -p scripts
+      cp /vagrant/scripts/#{script} /home/vagrant/scripts
+      cp /vagrant/scripts/install.sh /home/vagrant/scripts
+      ls /home/vagrant/scripts
+      chmod +x /home/vagrant/scripts/#{script}
+      chmod +x /home/vagrant/scripts/install.sh
+      /home/vagrant/scripts/#{script}
+    SHELL
+  else
+    config.vm.provision "shell", inline: <<-SHELL
+      echo "Copiando y ejecutando el script..."
+      mkdir -p scripts
+      cp /vagrant/scripts/install.sh /home/vagrant/scripts
+      chmod +x /home/vagrant/scripts/install.sh
+      /home/vagrant/scripts/install.sh
+    SHELL
+  end
+
+end

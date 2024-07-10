@@ -6,6 +6,14 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 echo "La ruta del script es: $SCRIPT_PATH"
 echo "El directorio del script es: $SCRIPT_DIR"
 
+OS="linux"
+# Verifica si $1 no está vacío para path del archivo vagrantfile
+if [ -n "$5" ]; then
+  # Si $1 tiene algún valor, cambia al directorio indicado por $1
+  OS=$5
+  echo "OS $5"
+fi
+
 PLACE="home"
 # Verifica si $1 no está vacío para path del archivo vagrantfile
 if [ -n "$1" ]; then
@@ -14,25 +22,26 @@ if [ -n "$1" ]; then
   echo "PLACE $1"
 fi
 
-source ${SCRIPT_DIR}/${PLACE}/available_ips.sh
+echo "${SCRIPT_DIR}/${PLACE}/${OS}/available_ips.sh"
+source ${SCRIPT_DIR}/${PLACE}/${OS}/available_ips.sh
 
-# Verifica si $1 no está vacío para path del archivo vagrantfile
+# Verifica si $2 no está vacío para path del archivo vagrantfile
 if [ -n "$2" ]; then
-  # Si $1 tiene algún valor, cambia al directorio indicado por $1
+  # Si $2 tiene algún valor, cambia al directorio indicado por $2
   cd "$2"
   echo "Cambiado al directorio $2"
 fi
 
-index=0
-SCRIPT_INITIAL="sandbox_script.sh"
 GROUP="SANDBOX"
-
 # Verifica si $1 no está vacío para path del archivo vagrantfile
 if [ -n "$3" ]; then 
   GROUP="$3"
   echo "GROUP $3"
 fi
 
+
+index=0
+SCRIPT_INITIAL="sandbox_script.sh"
 case $GROUP in
   SANDBOX)
     echo "El valor es SANDBOX. Aquí va el tratamiento específico para SANDBOX."
@@ -71,13 +80,14 @@ IP_INFRA=${IPS[index]}
 IP_DEPLOY=${IPS[index]}
 ((index++))
 
-OPERATION=up
 
-# Verifica si $1 no está vacío para path del archivo vagrantfile
+OPERATION=up
+# Verifica si $4 no está vacío para path del archivo vagrantfile
 if [ -n "$4" ]; then
   OPERATION="$4"
   echo "PROCESANDO $4"
 fi
+
 
 SKIP_SH_SCRIPTS=false
 # Comprueba si $4 es 'reload --provision'
