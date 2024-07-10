@@ -9,4 +9,4 @@ set "BASH_PATH=%BASH_PATH:\=/%"
 ::USERNAME
 
 echo %BASH_PATH%
-"C:\Program Files\Git\bin\bash.exe" -c "'%BASH_PATH%'/common/common.sh %BASH_PATH% 'paul-laptop01' 'sandbox' 'false' 'paul'
+"C:\Program Files\Git\bin\bash.exe" -c "'%BASH_PATH%'/lib/common.sh %BASH_PATH% 'paul-laptop01' 'sandbox' 'true' 'paul'

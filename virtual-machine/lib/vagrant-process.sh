@@ -24,7 +24,7 @@ echo "Username: $username"
 cd $current_dir
 
 # Leer el archivo JSON
-json_string=$(cat vms.json)
+json_string=$(cat vms_config/vms_$prefijo_vm.json)
 
 # Inicializar el array
 vms=()

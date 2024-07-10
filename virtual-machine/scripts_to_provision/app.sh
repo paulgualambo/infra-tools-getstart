@@ -1,3 +1,9 @@
+#!/bin/bash
+
+echo 'INSTALL app'
+cd /home/vagrant/scripts
+./install.sh
+
 #configure ssh
 #ssh-keygen
 

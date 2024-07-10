@@ -1,0 +1,116 @@
+{
+    "sandbox": [
+        {
+            "hostname": "paul-laptop01-sandbox-app",
+            "ip": "192.168.56.10",
+            "box_image": "bento/ubuntu-20.04",
+            "username": "paul",
+            "shared_folder_host": "P:\\vms_shared\\paul-laptop01-sandbox-app",
+            "shared_folder_vm": "/home/paul/shared",
+            "script": "app.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-sandbox-infra",
+            "ip": "192.168.56.12",
+            "box_image": "bento/ubuntu-20.04",
+            "username": "paul",
+            "shared_folder_host": "P:\\vms_projects_data\\paul-laptop01-sandbox-infra",
+            "shared_folder_vm": "/home/paul/shared",
+            "script": "infra.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        },
+        {
+            "hostname": "paul-pc01-sandbox-deploy",
+            "ip": "192.168.56.14",
+            "box_image": "bento/ubuntu-20.04",
+            "username": "paul",
+            "shared_folder_host": "P:\\vms_projects_data\\paul-laptop01-sandbox-infra",
+            "shared_folder_vm": "/home/paul/shared",
+            "script": "deploy.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        }      
+    ],
+    "study": [
+        {
+            "hostname": "paul-laptop01-study-app",
+            "ip": "192.168.56.20",
+            "box_image": "bento/ubuntu-20.04",
+            "username": "paul",
+            "shared_folder_host":  "P:\\vms_projects_data\\paul-laptop01-study-app",
+            "shared_folder_vm": "/home/paul/projects",
+            "script": "study_script.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-study-infra",
+            "ip": "192.168.56.22",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-study-infra",
+            "shared_folder_vm": "/home/paul/projects",
+            "script": "study_script.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        },
+        {
+            "hostname": "paul-pc01-study-deploy",
+            "ip": "192.168.56.14",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-study-infra",
+            "shared_folder_vm": "/home/paul/projects",
+            "script": "sandbox_study.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        }      
+    ],
+    "w001": [
+        {
+            "hostname": "paul-laptop01-w001-app",
+            "ip": "192.168.56.30",
+            "box_image": "bento/ubuntu-20.04",
+            "username": "paul",
+            "shared_folder_host":  "P:\\environment\\paul-laptop01-w001-app",
+            "shared_folder_vm": "/home/paul/projects",
+            "script": "w001_script.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-sandbox-infra",
+            "ip": "192.168.56.12",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-sandbox-infra",
+            "shared_folder_vm": "/home/paul/projects",
+            "script": "sandbox_script.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        },
+        {
+            "hostname": "paul-pc01-sandbox-deploy",
+            "ip": "192.168.56.14",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-deploy-infra",
+            "shared_folder_vm": "/home/paul/projects",
+            "script": "sandbox_script.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        }      
+    ]        
+}

@@ -59,20 +59,20 @@ def configure_vm_script(config, script)
     config.vm.provision "shell", inline: <<-SHELL
       echo "Copiando y ejecutando el script...#{script}"
       mkdir -p scripts
-      cp /vagrant/scripts/#{script} /home/vagrant/scripts
-      cp /vagrant/scripts/install.sh /home/vagrant/scripts
-      ls /home/vagrant/scripts
-      chmod +x /home/vagrant/scripts/#{script}
-      chmod +x /home/vagrant/scripts/install.sh
-      /home/vagrant/scripts/#{script}
+      cp /vagrant/scripts_to_provision/#{script} /home/vagrant/scripts_to_provision/scripts
+      cp /vagrant/scripts_to_provision/install.sh /home/vagrant/scripts_to_provision/scripts
+      ls /home/vagrant/scripts_to_provision
+      chmod +x /home/vagrant/scripts_to_provision/#{script}
+      chmod +x /home/vagrant/scripts_to_provision/install.sh
+      /home/vagrant/scripts_to_provision/#{script}
     SHELL
   else
     config.vm.provision "shell", inline: <<-SHELL
       echo "Copiando y ejecutando el script..."
       mkdir -p scripts
-      cp /vagrant/scripts/install.sh /home/vagrant/scripts
-      chmod +x /home/vagrant/scripts/install.sh
-      /home/vagrant/scripts/install.sh
+      cp /vagrant/scripts_to_provision/install.sh /home/vagrant/scripts_to_provision
+      chmod +x /home/vagrant/scripts_to_provision/install.sh
+      /home/vagrant/scripts_to_provision/install.sh
     SHELL
   end
 
