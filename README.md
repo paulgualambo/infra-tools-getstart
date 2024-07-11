@@ -36,4 +36,7 @@ sudo apt-get update
 sudo apt-get install vagrant
 
 sudo apt autoremove -y
+
+#en vagrant instalar este plugin para no tener conflictos con el mountaing y el provision
+vagrant plugin install vagrant-vbguest
 ```
