@@ -53,7 +53,7 @@ Host W002-INFRA-192.168.56.42
   User paul
   ForwardAgent yes
 
-Host W002-DEPLOY-192.168.1.44
-  HostName 192.168.1.44
+Host W002-DEPLOY-192.168.56.44
+  HostName 192.168.56.44
   User paul
   ForwardAgent yes
