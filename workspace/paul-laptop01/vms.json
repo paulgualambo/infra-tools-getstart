@@ -60,7 +60,7 @@
             "script": "infra.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         },
         {
             "hostname": "paul-laptop01-study-deploy",
@@ -72,7 +72,7 @@
             "script": "deploy.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         }      
     ],
     "w001": [
@@ -98,7 +98,7 @@
             "script": "infra.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         },
         {
             "hostname": "paul-laptop01-w001-deploy",
@@ -110,7 +110,7 @@
             "script": "deploy.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         }      
     ],
     "w002": [
