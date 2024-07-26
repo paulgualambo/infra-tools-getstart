@@ -85,7 +85,7 @@
             "shared_folder_vm": "/shared",
             "script": "app.sh",
             "memory": "2048",
-            "cpus": "2",
+            "cpus": "1",
             "active":true
         },
         {
@@ -96,8 +96,8 @@
             "shared_folder_host": "/home/paul/environment/paul-pc01-w001-infra",
             "shared_folder_vm": "/shared",
             "script": "infra.sh",
-            "memory": "2048",
-            "cpus": "2",
+            "memory": "1024",
+            "cpus": "1",
             "active":false
         },
         {
@@ -108,8 +108,8 @@
             "shared_folder_host": "/home/paul/environment/paul-pc01-w001-deploy",
             "shared_folder_vm": "/shared",
             "script": "deploy.sh",
-            "memory": "2048",
-            "cpus": "2",
+            "memory": "1024",
+            "cpus": "1",
             "active":false
         }      
     ],

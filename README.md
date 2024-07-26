@@ -1,4 +1,4 @@
-# infra-tools-getstart
+# [vms-getstart]
 
 ```sh
 
@@ -21,7 +21,7 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode s
 sudo apt update
 sudo apt install code
 
-##git
+## git
 sudo apt update
 sudo apt install git -y
 git --version
