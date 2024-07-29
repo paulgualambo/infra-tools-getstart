@@ -54,17 +54,42 @@ vms_config_json=$(jq -n \
     vms: []
   }')
 
-# Agregar el nuevo VM al JSON
 for vm in "${vms[@]}"; do
-  vms_config_json=$(echo "$vms_config_json" | jq --argjson new_vm "$vm" '.vms += [$new_vm]')
+  echo $vm
+  # Extraer hostname e ip usando jq
+  hostname=$(echo "$vm" | jq -r '.hostname')
+  ip=$(echo "$vm" | jq -r '.ip')
+
+  # Concatenar hostname e ip
+  hostname_ip="${hostname}_${ip}"
+  VM_EXISTS=$(VBoxManage list vms | grep "\"$hostname_ip\"")
+  upfirsttime=true
+  if [ "$VM_EXISTS" ]; then
+    upfirsttime=false  
+  fi
+
+  vm_with_upfirsttime=$(echo "$vm" | jq --argjson upfirsttime "$upfirsttime" '. + {"upfirsttime": $upfirsttime}')
+  vms_config_json=$(echo "$vms_config_json" | jq --argjson new_vm "$vm_with_upfirsttime" '.vms += [$new_vm]')
 done
+
+echo $vms_config_json
 
 vms_config=$vms_config_json vagrant $action
 
-# echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.${IP_START} #APP"
-# echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.$((IP_START+2)) #INFRA"
-# echo "ssh-copy-id -i ~/.ssh/id_rsa.pub ${USER_T}@${IP_BASE}.$((IP_START+4)) #DEPLOY"
+# Recorrer el JSON y ejecutar el comando si upfirsttime es true
+vms=$(echo "$vms_config_json" | jq -c '.vms[]')
 
-# echo "ssh ${USER_T}@${IP_BASE}.${IP_START} #APP"
-# echo "ssh ${USER_T}@${IP_BASE}.$((IP_START+2)) #INFRA"
-# echo "ssh ${USER_T}@${IP_BASE}.$((IP_START+4)) #DEPLOY"
+RELOAD=$RELOAD
+for vm in $vms; do
+  hostname=$(echo "$vm" | jq -r '.hostname')
+  upfirsttime=$(echo "$vm" | jq -r '.upfirsttime')
+
+  if [ "$upfirsttime" == "true" ]; then
+    vm_name="${hostname}"
+    echo "Ejecutando vagrant halt $vm_name"
+    vms_config=$vms_config_json vagrant halt $vm_name
+    RELOAD="true"
+  fi
+done
+
+export RELOAD

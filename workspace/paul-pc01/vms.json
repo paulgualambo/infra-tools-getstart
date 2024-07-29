@@ -6,7 +6,7 @@
             "box_image": "bento/ubuntu-24.04",
             "username": "paul",
             "shared_folder_host": "/home/paul/environment/paul-pc01-sandbox-app",
-            "shared_folder_vm": "/shared",
+            "shared_folder_vm": "/backup",
             "script": "app.sh",
             "memory": "2048",
             "cpus": "2",
@@ -18,7 +18,7 @@
             "box_image": "bento/ubuntu-24.04",
             "username": "paul",
             "shared_folder_host": "/home/paul/environment/paul-pc01-sandbox-app",
-            "shared_folder_vm": "/shared",
+            "shared_folder_vm": "/backup",
             "script": "infra.sh",
             "memory": "2048",
             "cpus": "2",
@@ -30,11 +30,11 @@
             "box_image": "bento/ubuntu-24.04",
             "username": "paul",
             "shared_folder_host": "/home/paul/environment/paul-pc01-sandbox-infra",
-            "shared_folder_vm": "/shared",
+            "shared_folder_vm": "/backup",
             "script": "deploy.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         }      
     ],
     "study": [

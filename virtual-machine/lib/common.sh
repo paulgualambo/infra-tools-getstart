@@ -44,23 +44,11 @@ vm_args=$(jq -n \
     }'
 )
 
-# if [ "$FIRST_TIME" = "true" ]; then
-#   #first time
-#   ## mountaing false, provision true
-#   vm_args=$(echo "$vm_args" | jq --arg new_provision "true" --arg new_mountaing "false" --arg new_action "up" \
-#       '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
-#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-#   ## halt
-#   vm_args=$(echo "$vm_args" | jq --arg new_provision "true" --arg new_mountaing "false" --arg new_action "halt" \
-#       '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
-#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-#   ## mountaing true, provision false
-#   vm_args=$(echo "$vm_args" | jq --arg new_provision "false" --arg new_mountaing "true" --arg new_action "up" \
-#       '.provision = $new_provision | .mountaing = $new_mountaing | .action = $new_action')
-#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-# else
-#   #second time always
-#   $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
-# fi
+RELOAD="false"
+export RELOAD
+source $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
 
-$CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
+echo "Reload $RELOAD"
+if [ "$RELOAD" == "true" ]; then
+  source $CURRENT_DIR/lib/vagrant-process.sh "$vm_args"
+fi

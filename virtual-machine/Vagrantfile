@@ -9,8 +9,8 @@ require 'json'
 vms_config = JSON.parse(ENV['vms_config'])
 
 # Imprimir vms_config en la consola
-puts "vms_config:"
-puts JSON.pretty_generate(vms_config)
+#puts "vms_config in vagrant:"
+#puts JSON.pretty_generate(vms_config)
 
 Vagrant.configure("2") do |config|
 
@@ -26,43 +26,17 @@ Vagrant.configure("2") do |config|
         vb.name = "#{vm['hostname']}_#{vm['ip']}"
         vb.memory = vm['memory']
         vb.cpus = vm['cpus']
+        vb.customize ["modifyvm", :id, "--ioapic", "on"]
+        vb.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
       end
-
-      # if vms_config['provision']
-      #   # Provisión para instalar paquetes y crear usuario
-      #   subconfig.vm.provision "shell", inline: <<-SHELL
-      #       echo "Instalando avahi-daemon y libnss-mdns..."
-      #       apt-get update
-      #       apt-get install -y avahi-daemon libnss-mdns
-      #       systemctl restart avahi-daemon
-      #       echo "Instalación completada avahi-daemon y libnss-mdns."
-      #   SHELL
-      #   configure_vm_script(subconfig, vm['script'])
-      # end
-
-      # if vms_config['mountaing']
-      #   subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true, owner: vm['username'], group: vm['username']
-      #   subconfig.vm.provision "shell", inline: <<-SHELL
-      #       echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
-      #   SHELL
-      # end
 
       configure_vm_script(subconfig, vm['script'])
       
-      # subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'] , create: true , owner: vm['username'], group: vm['username']
-      # Configuración de `rsync` para sincronizar archivos con permisos adecuados
-      subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'], type: "rsync",
-        rsync__exclude: ["node_modules/", ".git/"],
-        owner: vm['username'],
-        group: vm['username'],
-        mount_options: ["dmode=775,fmode=775"]
-    
+      if !vm['upfirsttime']
+        subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'], create: true , owner: vm['username'], group: vm['username']
+      end
 
-      subconfig.vm.provision "shell", inline: <<-SHELL
-          echo "Carpeta compartida configurada Host: #{vm['shared_folder_host']} VM: #{vm['shared_folder_vm']}"
-      SHELL
-
-    end
+    end    
   end
 end
 
