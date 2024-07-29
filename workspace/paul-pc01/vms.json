@@ -22,7 +22,7 @@
             "script": "infra.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         },
         {
             "hostname": "paul-pc01-sandbox-deploy",
