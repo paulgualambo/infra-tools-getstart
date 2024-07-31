@@ -9,7 +9,7 @@
             "shared_folder_vm": "/backup",
             "script": "app.sh",
             "memory": "2048",
-            "cpus": "2",
+            "cpus": "4",
             "active":true
         },
         {
@@ -85,7 +85,7 @@
             "shared_folder_vm": "/backup",
             "script": "app.sh",
             "memory": "2048",
-            "cpus": "2",
+            "cpus": "4",
             "active":true
         },
         {
