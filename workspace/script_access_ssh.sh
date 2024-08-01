@@ -20,6 +20,10 @@ sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_rsa.pub paul@192.168.56.20
 sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_rsa.pub paul@192.168.56.22
 sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_rsa.pub paul@192.168.56.24
 
+sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_ed25519.pub paul@192.168.56.20
+sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_ed25519.pub paul@192.168.56.22
+sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_ed25519.pub paul@192.168.56.24
+
 #W001
 sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_rsa.pub paul@192.168.56.30
 sshpass -p 'P@ul1984' ssh-copy-id -f -i ~/.ssh/id_rsa.pub paul@192.168.56.32

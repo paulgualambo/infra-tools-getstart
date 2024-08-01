@@ -24,4 +24,5 @@ sudo cp -R /vagrant/scripts_to_provision/* /home/$USERNAME/config_vm/
 sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/config_vm/
 sudo chmod 755 -R /home/$USERNAME/config_vm/*.sh
 
+
 echo "Scripts copiados correctamente."

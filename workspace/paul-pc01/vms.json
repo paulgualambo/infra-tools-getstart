@@ -60,7 +60,7 @@
             "script": "infra.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         },
         {
             "hostname": "paul-pc01-study-deploy",
@@ -72,7 +72,7 @@
             "script": "deploy.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         }      
     ],
     "w001": [
