@@ -8,7 +8,7 @@ git config --global user.email $EMAIL
 git config --global user.name $FULLNAME
 
 #configure SSH
-yes "" | ssh-keygen -t ed25519 -C "$EMAIL"
+yes y | ssh-keygen -t ed25519 -C "$EMAIL" -f /home/${USERNAME}/.ssh/id_ed25519 -N ""
 
 #Add .bashrc
 echo -e '\n' >> ~/.bashrc
@@ -16,6 +16,25 @@ echo 'eval "$(ssh-agent -s)"' >> ~/.bashrc
 echo 'ssh-add ~/.ssh/id_ed25519' >> ~/.bashrc
 echo -e '\n' >> ~/.bashrc
 
+#mejora del git 
+echo '# Alias de Git' >> ~/.bashrc
+echo 'git config --global alias.st "status"' >> ~/.bashrc
+echo 'git config --global alias.lg "log --oneline --graph --all"' >> ~/.bashrc
+echo 'git config --global alias.hist "log --pretty=format:'"'%h %ad | %s%d [%an]'"' --graph --date=short"' >> ~/.bashrc
+echo 'git config --global alias.a "add ."' >> ~/.bashrc
+echo 'git config --global alias.cm "commit -m"' >> ~/.bashrc
+echo 'git config --global alias.br "branch"' >> ~/.bashrc
+echo 'git config --global alias.co "checkout"' >> ~/.bashrc
+echo 'git config --global alias.cb "checkout -b"' >> ~/.bashrc
+echo 'git config --global alias.mg "merge"' >> ~/.bashrc
+echo 'git config --global alias.rb "branch -d"' >> ~/.bashrc
+echo 'git config --global alias.pl "pull"' >> ~/.bashrc
+echo 'git config --global alias.ps "push"' >> ~/.bashrc
+echo 'git config --global alias.unstage "reset HEAD"' >> ~/.bashrc
+echo 'git config --global alias.s "stash"' >> ~/.bashrc
+echo 'git config --global alias.sp "stash pop"' >> ~/.bashrc
+echo 'git config --global alias.ri "rebase -i"' >> ~/.bashrc
+echo '' >> ~/.bashrc
 
 #creacion de carpeta
 mkdir -p ~/workspace
@@ -25,5 +44,16 @@ sudo chown $USERNAME:$USERNAME /backup
 sudo cp -R /backup/* /home/$USERNAME/workspace/
 sudo mkdir -p /home/$USERNAME/workspace/projects /home/$USERNAME/workspace/data
 sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/workspace/
+
+# Recargar el archivo de configuración para aplicar los cambios
+source ~/.bashrc
+
 #habilitar crontab -e
 # copiar al final  "* * * * * /home/paul/config_vm/backup.sh" ejecución a cada minuto
+# https://github.com/paulgualambo/git-tool/blob/main/config_account.sh
+# https://bitbucket.org/account/settings/ssh-keys/
+# https://github.com/settings/keys
+# https://gitlab.com/-/user_settings/ssh_keys
+
+# Proyecto generico que tiene utilitarios
+# git clone git@bitbucket.org:paulgualambo/wxxx-common.git

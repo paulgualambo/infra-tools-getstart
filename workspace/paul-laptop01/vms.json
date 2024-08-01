@@ -47,7 +47,7 @@
             "shared_folder_vm": "/backup",
             "script": "app.sh",
             "memory": "2048",
-            "cpus": "2",
+            "cpus": "4",
             "active":true
         },
         {
@@ -123,7 +123,7 @@
             "shared_folder_vm": "/backup",
             "script": "app.sh",
             "memory": "2048",
-            "cpus": "2",
+            "cpus": "4",
             "active":true
         },
         {
@@ -136,7 +136,7 @@
             "script": "infra.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         },
         {
             "hostname": "paul-laptop01-w002-deploy",
@@ -148,7 +148,7 @@
             "script": "deploy.sh",
             "memory": "2048",
             "cpus": "2",
-            "active":true
+            "active":false
         }      
     ]        
 }
