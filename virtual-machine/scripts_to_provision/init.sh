@@ -34,6 +34,27 @@ echo 'git config --global alias.unstage "reset HEAD"' >> ~/.bashrc
 echo 'git config --global alias.s "stash"' >> ~/.bashrc
 echo 'git config --global alias.sp "stash pop"' >> ~/.bashrc
 echo 'git config --global alias.ri "rebase -i"' >> ~/.bashrc
+
+# Configurar VS Code como editor predeterminado
+git config --global core.editor "code --wait"
+
+# Crear el script de shell para seleccionar el editor
+touch ~/config_vm/git-choose-editor.sh
+
+# Editar el script
+echo '#!/bin/sh
+if command -v code >/dev/null 2>&1; then
+  code --wait "$@"
+else
+  vim "$@"
+fi' > ~/config_vm/git-choose-editor.sh
+
+# Hacer el script ejecutable
+chmod +x ~/config_vm/git-choose-editor.sh
+
+# Configurar Git para usar el script como editor
+git config --global core.editor "~/choose-editor.sh"
+
 echo '' >> ~/.bashrc
 
 #creacion de carpeta
