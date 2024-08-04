@@ -62,6 +62,7 @@ mkdir -p ~/workspace
 
 #brindando permisos a la carpeta backup
 sudo chown $USERNAME:$USERNAME /backup
+sudo mkdir -p /backup
 sudo cp -R /backup/* /home/$USERNAME/workspace/
 sudo mkdir -p /home/$USERNAME/workspace/projects /home/$USERNAME/workspace/data
 sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/workspace/
